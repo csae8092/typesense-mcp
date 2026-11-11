@@ -24,12 +24,6 @@ It does not expose arbitrary Typesense queries or write operations.
 ## Run locally
 
 ```bash
-cp .env.example .env
-# Edit .env and set the Typesense connection and API key.
-uv sync
-set -a
-source .env
-set +a
 uv run typesense-mcp
 ```
 
@@ -41,9 +35,13 @@ For development, you can also run:
 uv run fastmcp run src/typesense_mcp/server.py --transport http --host 0.0.0.0 --port 8000
 ```
 
+```bash
+uv run fastmcp inspect src/typesense_mcp/server.py
+```
+
 ## Configuration
 
-`TYPESENSE_COLLECTIONS_JSON` is a JSON object keyed by Typesense collection name.
+[TYPESENSE_COLLECTIONS_JSON](src/typesense_mcp/config.py) is a JSON object keyed by Typesense collection name.
 Each collection supports:
 
 | Setting | Meaning |
@@ -58,49 +56,8 @@ Each collection supports:
 | `sort_by` | Optional Typesense sort expression |
 | `description` | Human-readable collection description |
 
-Example for the Kalbeck index:
-
-```json
-{
-  "kalbeck-tagebuch-static": {
-    "query_by": ["title", "full_text"],
-    "default_facets": [
-      "person_entities.id",
-      "place_entities.id",
-      "org_entities.id",
-      "bibl_entities.id"
-    ],
-    "entity_fields": {
-      "persons": "person_entities",
-      "places": "place_entities",
-      "organizations": "org_entities",
-      "bibliographies": "bibl_entities"
-    },
-    "date_field": null,
-    "result_fields": [
-      "id", "rec_id", "paragraph_index", "page_index", "page_label",
-      "title", "url", "full_text", "person_entities", "place_entities",
-      "org_entities", "bibl_entities"
-    ]
-  }
-}
-```
-
 Add another collection as another top-level JSON entry. It can use different
 text fields, facet names and date fields.
-
-## Important: current Kalbeck schema and dates
-
-The supplied `make_ts_index.py` creates paragraph records with `title`,
-`full_text`, `page_index`, `page_label`, and nested entity arrays. It does **not**
-currently index a date field. Consequently, date facets and date range filtering
-cannot work for that collection until a numeric date field (for example `year`)
-is added to each paragraph record and marked facetable in the Typesense schema.
-Set `"date_field": "year"` and add `"year"` to `default_facets` after doing so.
-
-For date ranges that are not known to be exact years, consider indexing numeric
-`date_start` and `date_end` fields and designing range-overlap semantics explicitly.
-A single `year` field is appropriate only when each record has one unambiguous year.
 
 ## Nested entity fields
 

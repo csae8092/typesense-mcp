@@ -24,13 +24,6 @@ _SAFE_FIELD = re.compile(r"^[A-Za-z0-9_.-]+$")
 _SAFE_ID = re.compile(r"^[A-Za-z0-9_.:-]+$")
 
 
-def _required_env(name: str, default: str | None = None) -> str:
-    value = os.getenv(name, default)
-    if not value:
-        raise RuntimeError(f"Missing required environment variable: {name}")
-    return value
-
-
 def _load_collections() -> dict[str, dict[str, Any]]:
     configs = TYPESENSE_COLLECTIONS_JSON
 
@@ -70,13 +63,17 @@ def _client() -> typesense.Client:
         {
             "nodes": [
                 {
-                    "host": _required_env("TYPESENSE_HOST", "localhost"),
-                    "port": _required_env("TYPESENSE_PORT", "8108"),
-                    "protocol": _required_env("TYPESENSE_PROTOCOL", "http"),
+                    "host": os.environ.get(
+                        "TYPESENSE_HOST", "typesense.acdh-dev.oeaw.ac.at"
+                    ),
+                    "port": os.environ.get("TYPESENSE_PORT", "443"),
+                    "protocol": os.environ.get("TYPESENSE_PROTOCOL", "https"),
                 }
             ],
-            "api_key": _required_env("TYPESENSE_API_KEY"),
-            "connection_timeout_seconds": int(_required_env("TYPESENSE_TIMEOUT", "10")),
+            "api_key": "QXrvdzA1egS1JuzjM05QzPkgNXwuesTP",
+            "connection_timeout_seconds": int(
+                os.environ.get("TYPESENSE_TIMEOUT", "10")
+            ),
         }
     )
 
@@ -329,9 +326,9 @@ def get_document(collection: str, document_id: str) -> dict[str, Any]:
 
 
 def main() -> None:
-    host = _required_env("MCP_HOST", "0.0.0.0")
-    port = int(_required_env("MCP_PORT", "8000"))
-    path = _required_env("MCP_PATH", "/mcp")
+    host = os.environ.get("MCP_HOST", "0.0.0.0")
+    port = int(os.environ.get("MCP_PORT", "8000"))
+    path = os.environ.get("MCP_PATH", "/mcp")
     mcp.run(transport="http", host=host, port=port, path=path)
 
 

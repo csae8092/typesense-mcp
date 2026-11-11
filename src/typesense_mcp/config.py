@@ -28,5 +28,6 @@ TYPESENSE_COLLECTIONS_JSON = {
             "org_entities",
             "bibl_entities",
         ],
+        "description": "Paragraph-level index of the Kalbeck diary, with searchable text and linked entities.",
     }
 }
