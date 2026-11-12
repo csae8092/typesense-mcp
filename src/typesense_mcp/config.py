@@ -44,6 +44,36 @@ TYPESENSE_COLLECTIONS_JSON = {
         ],
         "description": "Entries in the Diary of Arthur Schnitzler from 1879 to 1931.",
     },
+    "amp": {
+        "query_by": ["title", "full_text"],
+        "default_facets": ["persons", "places", "works", "events"],
+        "result_fields": [
+            "id",
+            "rec_id",
+            "title",
+            "full_text",
+            "persons",
+            "places",
+            "works",
+            "events",
+        ],
+        "description": "A Digital Edition of W. H. Auden's Letters to Stella Musulin. Letters and literary papers by Anglo-American poet W. H. Auden (1907-1973) and the Welsh-Austrian writer and journalist Stella Musulin (1915-1996)",
+    },
+    "schnitzler-briefe": {
+        "query_by": ["title", "full_text"],
+        "default_facets": ["persons", "places", "works", "events"],
+        "result_fields": [
+            "id",
+            "rec_id",
+            "title",
+            "full_text",
+            "persons",
+            "places",
+            "works",
+            "events",
+        ],
+        "description": "Arthur Schnitzler, Briefwechsel mit Autorinnen und Autoren, 1885–1931",
+    },
 }
 
 
