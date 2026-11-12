@@ -32,7 +32,7 @@ The MCP endpoint defaults to `http://localhost:8000/mcp`.
 For development, you can also run:
 
 ```bash
-uv run fastmcp run src/typesense_mcp/server.py --transport http --host 0.0.0.0 --port 8000
+uv run fastmcp dev src/typesense_mcp/server.py --transport http --host 0.0.0.0 --port 8000
 ```
 
 ```bash
