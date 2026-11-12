@@ -29,5 +29,45 @@ TYPESENSE_COLLECTIONS_JSON = {
             "bibl_entities",
         ],
         "description": "Paragraph-level index of the Kalbeck diary, with searchable text and linked entities.",
-    }
+    },
+    "stb": {
+        "query_by": ["title", "full_text"],
+        "default_facets": ["persons", "places", "works"],
+        "result_fields": [
+            "id",
+            "rec_id",
+            "title",
+            "full_text",
+            "persons",
+            "places",
+            "works",
+        ],
+        "description": "Entries in the Diary of Arthur Schnitzler from 1879 to 1931.",
+    },
+}
+
+
+API_KEY_COLLECTION_SEARCH = {
+    "description": "Search-only dse-static key.",
+    "actions": ["documents:search"],
+    "collections": [
+        "stb",
+        "schnitzler-briefe",
+        "Schnitzler-Zeitungen",
+        "legalkraus",
+        "kalbeck-tagebuch-static",
+        "akademie-static",
+        "amp",
+        "bahr-static",
+        "emt",
+        "leopold-briefe-static",
+        "maechtekongresse",
+        "mrp-static",
+        "pollaczek",
+        "Schnitzler-Mikrofilme",
+        "STB",
+        "thun-static",
+        "tillich-briefe",
+        "tillich-lectures",
+    ],
 }

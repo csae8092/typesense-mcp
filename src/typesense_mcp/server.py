@@ -70,7 +70,7 @@ def _client() -> typesense.Client:
                     "protocol": os.environ.get("TYPESENSE_PROTOCOL", "https"),
                 }
             ],
-            "api_key": "QXrvdzA1egS1JuzjM05QzPkgNXwuesTP",
+            "api_key": "L0a1ZcKwyuFwwtgK7gUHZ6m8rlzI0ERi",
             "connection_timeout_seconds": int(
                 os.environ.get("TYPESENSE_TIMEOUT", "10")
             ),
